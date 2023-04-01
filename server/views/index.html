@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Offer Letter</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+
+  <style>
+    .page {
+      width: 800px;
+      height: 1173px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      margin-top: 40px;
+      margin-bottom: 40px;
+      box-shadow: 4px 4px 8px 1px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+
+    .vertical-sec {
+      border-left: 17px solid rgb(180, 105, 255);
+      height: 100%;
+      left: 3%;
+    }
+
+    .photo {
+      height: 160px;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 300px 1fr;
+
+    }
+
+    .horizontal-line {
+      border-top: 2px solid rgb(180, 105, 255);
+      height: 4px;
+      width: 90%;
+    }
+
+    .horizontal-line-up {
+
+      border-top: 2px solid rgb(96, 17, 142);
+      height: 4px;
+      width: 90%;
+      margin-top: 50px;
+
+    }
+
+    .horizontal-line-down {
+      margin-top: 540px;
+      border-top: 2px solid rgb(180, 105, 255);
+      height: 30px;
+      width: 90%;
+
+    }
+
+    .picture1 {
+      margin-top: 70px;
+      width: 300px;
+      object-fit: contain;
+      object-position: bottom;
+    }
+
+    .picture2 {
+      padding-top: 30px;
+      padding-right: 5px;
+      margin-left: 150px;
+      width: 170px;
+      object-fit: contain;
+      object-position: right;
+    }
+
+    .offer_letter {
+      font-size: 20px;
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: 550;
+      padding-top: 20px;
+      padding-bottom: 30px;
+      padding-right: 40px;
+      text-align: center;
+      color:rgb(232, 40, 232);
+    }
+
+    .paragraph {
+      font-size: 17px;
+      width: 650px;
+      padding-right: 60px;
+    }
+
+    .i3 {
+      width: 22%;
+    }
+
+    .footer {
+      font-size: 20px;
+      margin-bottom: 40px;
+      padding-bottom: 50px;
+    }
+
+    .date {
+      font-size: 17px;
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: 100px;
+
+      padding-bottom: 10px;
+    }
+
+    .pfoot {
+      margin-bottom: 70px;
+    }
+
+    .annexure {
+      padding-top: 20px;
+      font-size: 25px;
+    }
+
+    .s1 {
+      word-spacing: 9px;
+    }
+
+    .stamp {
+      display: block;
+      width: 140px;
+      margin-left: 400px;
+      margin-top: -30px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="page">
+    <div class="col1">
+      <div class="vertical-sec"></div>
+    </div>
+    <div style="margin-left:-25px">
+
+      <div class="photo">
+
+        <div>
+          <img class="picture1" src="https://picsum.photos/id/237/100/200">
+        </div>
+
+        <div>
+          <img class="picture2" src="img/TopTrove.png">
+        </div>
+
+      </div>
+      <hr class="horizontal-line">
+
+      <div class="offer_letter">
+        OFFER LETTER
+      </div>
+      <div class="date">
+        Date: <input type="date" required>
+      </div>
+      <div class="paragraph">
+        <p>
+          Dear <input class="input" type="text" placeholder="Harsh Sharma">, <br>
+          <span class="s1">Congratulations on being selected for the position of <input type="text" /> for duration of
+            <input type="text" /> months
+            internship with Team Peershala,
+            effective from <input type="date" />. We at Peershala are excited that you will join our team! <br> <br> As
+            we discussed
+            during the interview
+            process, this is a non-paid internship during which you will be expected to provide work as per the given
+            timelines. You
+            might be awarded different perks too if your performance speaks loud. <br><br> This internship is an
+            educational opportunity for
+            you and a part-time internship.As such, your internship will include training/orientation and focus
+            primarily
+            onlearning
+            and developing new skills and gaining a deeper understanding of concepts through the hands-on application of
+            the
+            knowledge you learned in class. <br><br> This internship adds the advantage of taking leave during
+            examinations,
+            medical emergencies, or uncertainties. In case of cancellation of internship under any situation, you must
+            notify your
+            respective supervisor. <br><br> Again, congratulations and we look forward to work with you.
+            <br>
+        </p>
+      </div>
+
+      <div class="sign">
+        <img class="i3" src="img/Sign.png">
+      </div>
+
+      <div class="paragraph">
+        <p class="pfoot">
+          Sincerely, <br>
+          Saksham Jain(Founder),<br>
+          Peershala.
+        </p>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="page">
+    <div>
+      <div class="vertical-sec"></div>
+    </div>
+    <div style="margin-left: -25px;">
+      <hr class="horizontal-line-up">
+      <div class="annexure">
+        Annexure A
+      </div>
+      <div style="padding-top: 30px; padding-bottom: 20px;" class="paragraph">
+        <p>
+          You shall be governed by the following terms and conditions of service during your association with Peershala,
+          and those may be amended from time to time. <br> <br>
+          1. Peershala follows a three-step disciplinary process: verbal warning, written warning and termination. We
+          use
+          this
+          approach to give interns the time and opportunity to fix their mistakes. However, Peershala reserves the right
+          to skip any
+          of the steps in this process and move directly to termination, if necessary. <br><br> 2. To resign from your
+          position,
+          we ask that
+          interns submit a written two-week (at minimum) notice to their supervisor directly. <br><br>
+          3. At Peershala, we are
+          always
+          striving to improve. Exit interviews have a proven track record of providing helpful and insightful
+          information
+          about an
+          individual’s time with the agency. Exit interviews are not mandatory but encouraged to openly discuss areas of
+          improvement. <br><br> 4. Peershala is proud to offer flexible work hours for our interns, so they can easily
+          balance
+          their
+          internship obligations with the demands of their daily life. <br><br> 5. Peershala is free to terminate any
+          intern's
+          tenure without
+          any prior notice if he/she tries to violate the rules, regulations of the organisation and is found not
+          performing up to
+          the mark. <br><br>
+          6. Peershala recognizes each intern’s right to individual respect and dignity and is committed to
+          establishing
+          and maintaining a professional, respectful learning and working environment for all. It is the policy of the
+          Peershala
+          to encourage and maintain a learning environment which is free from religious,racial or sexual harassment and
+          violence.
+          Peershala prohibits any form of religious, racial or sexual harassment and violence. It shall be a violation
+          of this
+          policy for any intern to harass or inflict, or threaten to inflict, violence upon any personal issue. Peershala will
+          act to
+          investigate all complaints, either formal or informal, verbal or written, of religious, racial or
+          sexual harassment or
+          violence, and to discipline or take appropriate action against any intern, who is found to have violated this
+          policy.
+          Peershala prohibits retaliation against individuals who participate in the complaint process.
+        </p>
+      </div>
+      <hr style="margin-top: 20px; margin-bottom: 30px;" class="horizontal-line-down">
+    </div>
+  </div>
+
+
+  <div class="page">
+    <div>
+      <div class="vertical-sec"></div>
+    </div>
+    <div style="margin-left:-25px">
+      <hr class="horizontal-line-up">
+      <div style="padding-top: 30px; padding-bottom: 20px;" class="paragraph">
+        <p>
+          7. Peershala prohibits discrimination in any form on the basis of race,creed, religion, gender, color,
+          nationality,
+          family, status, disability, status with regard to public assistance, sexual orientation, age, veteran status
+          or marital
+          status. This policy includes but is not limited to the following:Internship, promotion, demotion, transfer,
+          layoff,
+          recall, corrective actions, termination, compensation and training. <br><br>
+
+          8. A conflict or a potential conflict of interest can arise at any time.Interns must disclose such situations
+          to their
+          supervisors before occurrence, if possible, and in any event as quickly as possible after it arises. If interns
+          are in
+          doubt about a situation, they should fully disclose the situation. <br><br>
+
+          9. Closely monitoring the performance of interns and
+          the company as a whole is our priority. At Peershala, we conduct regular performance reviews. <br><br>
+
+          10. We have a performance
+          based promotion/demotion policy. That means, if you have an escalating performance, there are chances
+          your position will
+          be promoted. Same goes for demotion. <br>
+
+        </p>
+      </div>
+      <hr class="horizontal-line-down">
+    </div>
+  </div>
+
+
+  <div class="page">
+    <div>
+      <div class="vertical-sec"></div>
+    </div>
+    <div style="margin-left: -25px;">
+      <hr class="horizontal-line-up">
+      <div style="padding-top: 30px; padding-bottom: 20px;" class="paragraph">
+        <p>
+          By signing and replying to this mail,the reader confirms that it’s their responsibility to understand and
+          follow the
+          policies in the Letter of Intent. <br> For example: <br> &bull; You have read the entire Letter of Intent and
+          understand
+          your responsibilities related to it. <br> &bull; You have had the opportunity to ask questions to clarify any
+          unclear aspects of the
+          Terms & Conditions. <br> &bull; You agree to abide by its principles.
+          <img class="stamp" src="img/stamp.png">
+        </p>
+      </div>
+      <hr style="margin-top: 680px;
+                       padding-bottom :0 ;" class="horizontal-line-down">
+    </div>
+  </div>
+
+
+</body>
+
+</html>
