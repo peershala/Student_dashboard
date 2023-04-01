@@ -1,0 +1,46 @@
+{
+  "name": "toptrove-dashboard",
+  "version": "1.0.0",
+  "description": "npm init -y<br>\r npm i<br>\r npm i bcrypt express cors dotenv express-session mysql2 path",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "client": "cd client && npm i && npm start",
+    "server": "cd server && node index.js",
+    "fullappstart": "concurrently \"npm run server\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/realvineeths/toptrove-dashboard.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/realvineeths/toptrove-dashboard/issues"
+  },
+  "homepage": "https://github.com/realvineeths/toptrove-dashboard#readme",
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.2.1",
+    "axios": "^1.3.4",
+    "bcrypt": "^5.1.0",
+    "body-parser": "^1.20.2",
+    "bootstrap": "^5.2.3",
+    "chart.js": "^4.2.0",
+    "concurrently": "^7.6.0",
+    "cors": "^2.8.5",
+    "datatables.net-bs4": "^1.13.1",
+    "dotenv": "^16.0.3",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "fs": "^0.0.1-security",
+    "jquery": "^3.6.3",
+    "jquery.easing": "^1.4.1",
+    "mysql2": "^3.0.1",
+    "nodemon": "^2.0.21",
+    "path": "^0.12.7",
+    "puppeteer": "^19.8.0",
+    "session-file-store": "^1.5.0"
+  }
+}
