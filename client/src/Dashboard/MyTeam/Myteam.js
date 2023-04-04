@@ -38,7 +38,7 @@ const Myteam = () => {
   }));
 
   return (
-    <Box sx={{ minHeight: "80vh" }}>
+    <Box sx={{ height: "100%",overflow:"scroll" }}>
       <Container>
 
         <CustomBox>

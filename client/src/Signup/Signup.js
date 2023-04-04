@@ -1,6 +1,6 @@
-import React, { useState,useContext } from 'react'
+import React, { useState, useContext } from 'react'
 import Box from '@mui/material/Box';
-import { CardMedia, Chip, Divider, Grid, IconButton, Input, InputAdornment, OutlinedInput, Paper } from '@mui/material';
+import { Alert, CardMedia, Chip, CircularProgress, Divider, Grid, IconButton, Input, InputAdornment, OutlinedInput, Paper, Snackbar } from '@mui/material';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
@@ -10,7 +10,7 @@ import logo from '../assets/logo.png';
 import google from '../assets/google.png';
 import facebook from '../assets/facebook.png';
 import { styled } from '@mui/material/styles';
-import { purple } from '@mui/material/colors';
+import { green, purple } from '@mui/material/colors';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { width } from '@mui/system';
 import { useNavigate } from 'react-router-dom';
@@ -18,82 +18,139 @@ import ThemeToggleButton from './ThemeToggleButton';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import Axios from 'axios';
 import { UserContext } from '../context/ContextProvider';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 function Signup() {
 
-  const d= new Date();
+  const d = new Date();
   const navigate = useNavigate();
 
   const [loginthememode, setloginThememode] = useState(false)
-  const [usermail,setmail]=useState('');
-  const [userpass,setpass]=useState('');
-  const [fname,setfname]=useState('');
-  const [lname,setlname]=useState('');
+  const [usermail, setmail] = useState('');
+  const [userpass, setpass] = useState('');
+  const [fname, setfname] = useState('');
+  const [lname, setlname] = useState('');
   // const [cname,setcname]=useState('');
-  const [ctitle1,settitle]=useState('');
+  const [ctitle1, settitle] = useState('');
   // const [cdate1,setdate]=useState('');
   // const [cscore1,setscore]=useState('');
-  const [userContext,setUserContext]=useContext(UserContext);
+  const [userContext, setUserContext] = useContext(UserContext);
   const genericErrorMessage = "Something went wrong! Please try again later.";
   const [showPassword, setShowPassword] = React.useState(false);
+  const [loading, setLoading] = useState(false)
+  const [success, setSuccess] = useState(false)
 
-  const submitHandler=()=>
-  {
+
+  // -----------------------------------alert------------------------------------
+  const [openerror, setOpenerror] = useState(false);
+  const [opensuccess, setOpensuccess] = useState(false);
+  const [errormessage, seterrormessage] = useState("")
+  const [successmessage, setsuccessmessage] = useState("")
+
+  const handleClose1 = (event, reason) => {
+    if (reason === 'clickaway') {
+      setOpenerror(false);
+    }
+
+    setOpenerror(false);
+  };
+  const handleClose2 = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpensuccess(false);
+  };
+
+  // ------------------------------------------------------------------------
+
+
+  const submitHandler = () => {
+    setLoading(true)
     // console.log("clicked");
     // console.log(usermail);
     // console.log(userpass);
     // navigate('/dashboard');
-    const datenum=d.getDate();
-    const datemonth=d.getMonth();
-    const dateyear=d.getFullYear()
+    const datenum = d.getDate();
+    const datemonth = d.getMonth();
+    const dateyear = d.getFullYear()
 
-    const cdate1=`${datenum}/${datemonth}/${dateyear}`;
+    const cdate1 = `${datenum}/${datemonth}/${dateyear}`;
     // setdate(`${datenum}/${datemonth}/${dateyear}`);
+    const cscore1 = "+O";
     // setscore("O+");
-    const duration=3;
-    const cname1=fname.concat(" ",lname);
+    const cname1 = fname.concat(" ", lname);
     Axios.post("/register",
-    {username:usermail,
-    password:userpass
-    })
-    .then(async response=>{
-      // console.log('no error');
-      if(response.status==200)
       {
-        // console.log(cdate1,cscore1);
-        Axios.post('/filestore',{cname:cname1,ctitle:ctitle1,durationtime:duration,cdate:cdate1,uname:usermail}).then(res=>{
-          console.log(`File for  ${usermail} created`);
-        })
-        .catch(e=>{
-          console.log(e);
-        })
+        username: usermail,
+        password: userpass
+      })
+      .then(async response => {
+        // console.log('no error');
+        if (response.status == 200) {
+          // console.log(cdate1,cscore1);
+          Axios.post('/filestore', { cname: cname1, ctitle: ctitle1, cscore: cscore1, cdate: cdate1, uname: usermail }).then(res => {
+            console.log(`File for  ${usermail} created`);
+          })
+            .catch(e => {
+              seterrormessage(e);
 
-        navigate('/');
-      }
-    })
-    .catch(error => {
+            })
 
-      if(error.response)
-      if (error.response.status === 400) {
+          setLoading(false)
+          setSuccess(true)
+          setOpensuccess(true)
+          setsuccessmessage("Registration successfull")
+          setTimeout(() => {
+            navigate('/');
+            setSuccess(false)
+          }, 1500);
+          return
+        }
+      })
+      .catch(error => {
 
-        // setError("Please fill all the fields correctly!")
-        console.log("Please fill all the fields correctly!")
+        if (error.response)
+          if (error.response.status === 400) {
 
-      } else if (error.response.status === 401) {
+            // setError("Please fill all the fields correctly!")
+            seterrormessage("Please fill all the fields correctly!")
+            setOpenerror(true)
+            setTimeout(() => {
+              setLoading(false)
+            }, 2000)
+            return
 
-        console.log("Invalid email and password combination.")
+          } else if (error.response.status === 401) {
 
-      } else {
+            seterrormessage("Invalid email and password combination.")
+            setOpenerror(true)
+            setTimeout(() => {
+              setLoading(false)
+            }, 2000)
+            return
+          } else {
 
-        console.log(genericErrorMessage)
+            seterrormessage("")
+            setOpenerror(true)
+            setTimeout(() => {
+              setLoading(false)
+            }, 2000)
+            return
+          }
+        seterrormessage('error, please try again');
+        setOpenerror(true)
 
-    }
-    console.log('error',error);
-    // setIsSubmitting(false)
+        setTimeout(() => {
+          setLoading(false)
+        }, 1000);
 
-    // setError(genericErrorMessage)
 
-  })
+        // setIsSubmitting(false)
+
+        // setError(genericErrorMessage)
+
+      })
   };
 
 
@@ -111,17 +168,17 @@ function Signup() {
 
   const ColorButton = styled(Button)(({ theme }) => ({
     color: theme.palette.getContrastText(purple[500]),
-    backgroundColor: purple[900],
+    backgroundColor: success ? green[500] : purple[900],
     width: "100%",
     height: "3rem",
     fontWeight: "bold",
     borderRadius: "8px",
     '&:hover': {
-      backgroundColor: purple[700],
+      backgroundColor: success ? green[500] : purple[700],
     },
   }));
 
-  const CssTextField = styled(TextField,OutlinedInput)({
+  const CssTextField = styled(TextField, OutlinedInput)({
     '& label.Mui-focused': {
       color: loginthememode ? "white" : "blue",
     },
@@ -162,9 +219,9 @@ function Signup() {
       color: loginthememode ? "white" : "black"
     }}>
 
-      <Box onClick={toggleTheme} sx={{ display: "flex", justifyContent: "flex-end" }}>
+      {/* <Box onClick={toggleTheme} sx={{ display: "flex", justifyContent: "flex-end" }}>
         <ThemeToggleButton />
-      </Box>
+      </Box> */}
 
       {/* <img src={logo} alt="Peershala" style={{marginTop:"10rem", fontSize: "2rem", height: "5rem" }} /> */}
 
@@ -188,16 +245,38 @@ function Signup() {
           <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "space-evenly", height: "20rem", color: loginthememode ? "white" : "black" }}>
 
             <Box sx={{ display: "flex", justifyContent: "space-between", color: loginthememode ? "white" : "black" }}>
-              {/* <CssTextField fullWidth label="Name" /> */}
-              <Input type='text' onChange={(e)=>{setfname(e.target.value)}} placeholder="first name"/>
+
+              {/* first name input field */}
+              <TextField sx={{ "& input": { color: loginthememode ? "white" : "black", } }}
+                color='secondary' id="outlined-basic" label="First name" variant="outlined" type='text' onChange={(e) => { setfname(e.target.value) }} placeholder="first name" />
+
+
               <Box width={"3rem"}></Box>
+
               {/* <CssTextField fullWidth label="Last name" /> */}
-              <Input type='text' onChange={(e)=>{setlname(e.target.value)}} placeholder="last name"/>
+              <TextField sx={{ "& input": { color: loginthememode ? "white" : "black", } }} color='secondary' id="outlined-basic" label="Last name" variant="outlined" type='text' onChange={(e) => { setlname(e.target.value) }} placeholder="last name" />
+
             </Box>
+
             {/* <CssTextField type="email" fullWidth label="Email" /> */}
-            <Input type='email' onChange={(e)=>{setmail(e.target.value)}} placeholder="user name"/>
-            <Input type='text' onChange={(e)=>{settitle(e.target.value)}} placeholder="title"/>
-            <Input type='password' onChange={(e)=>{setpass(e.target.value)}} placeholder="password"/>
+            <TextField sx={{ "& input": { color: loginthememode ? "white" : "black", } }} color='secondary' id="outlined-basic" label="Email" variant="outlined" type='email' onChange={(e) => { setmail(e.target.value) }} placeholder="email" />
+
+            <TextField sx={{ "& input": { color: loginthememode ? "white" : "black", } }} color='secondary' id="outlined-basic" label="username" variant="outlined" type='text' onChange={(e) => { settitle(e.target.value) }} placeholder="user name" />
+
+            <OutlinedInput
+              type={showPassword ? 'text' : 'password'}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    edge="end"
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              } sx={{ "& input": { color: loginthememode ? "white" : "black", } }} color='secondary' id="outlined-basic" onChange={(e) => { setpass(e.target.value) }} placeholder="password" />
 
             {/* <CssTextField  fullWidth label="Password" /> */}
             {/* <CssTextField  fullWidth label="Password" /> */}
@@ -206,10 +285,15 @@ function Signup() {
           </Box>
 
           <Box sx={{ display: "flex", flexDirection: "column", height: "5rem", width: "100%", justifyContent: "space-between" }}>
-            <ColorButton variant="contained" onClick={submitHandler}>Sign Up</ColorButton>
-            {/* <Link href="#" underline="hover">
+
+            <ColorButton variant="contained" onClick={submitHandler} disabled={loading ? true : false} startIcon={success ? <CheckCircleIcon /> : ""}>
+              {success ? "" : loading ? <CircularProgress /> : "Sign Up"}
+
+            </ColorButton>
+
+            <Link href="#" underline="hover">
               {'Forget Password?"'}
-            </Link> */}
+            </Link>
             {/* <Box sx={{display:"flex",justifyContent:"space-between"}}>
             </Box> */}
           </Box>
@@ -228,10 +312,26 @@ function Signup() {
               }} variant="contained">Login</Button>
           </Box>
 
-
         </Box>
 
       </Paper>
+      {/* <Snackbar anchorOrigin={{ vertical: 'top',horizontal: 'right' }} open={true} sx={{ width: '100%' }} autoHideDuration={4000} onClose={handleClose1}>
+        <Alert onClose={handleClose1} severity="success" >
+          {errormessage}
+        </Alert>
+      </Snackbar> */}
+      {/* ----------------------------snackbar---------------------------------- */}
+      <Snackbar anchorOrigin={{ vertical: 'top',horizontal: 'right' }} open={openerror} autoHideDuration={4000} onClose={handleClose1}>
+        <Alert severity="error" sx={{width: '100%'}}>
+          {errormessage}
+        </Alert>
+      </Snackbar>
+      <Snackbar anchorOrigin={{ vertical: 'top',horizontal: 'right' }} elevation={3} open={opensuccess} autoHideDuration={4000} onClose={handleClose2}>
+        <Alert elevation={3} onClose={handleClose2} severity="success" sx={{ width: '100%'}}>
+          {successmessage}
+        </Alert>
+      </Snackbar>
+      {/* -------------------------------------------------------------------------- */}
 
     </Box>
   )

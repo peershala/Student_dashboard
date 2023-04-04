@@ -1,6 +1,10 @@
 import { Avatar, Box, Paper, Typography } from '@mui/material'
 import React from 'react'
 import { AppState } from '../../context/ContextProvider'
+import {
+    CircularProgressbar
+} from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
 
 function MinScreen() {
   const { thememode } = AppState()
@@ -80,6 +84,26 @@ function MinScreen() {
             6 months
           </Typography>
         </Paper>
+
+        <Paper elevation={3} sx={{
+                    background: thememode ? "#101534" : "#d9d9d9",
+                    color: thememode ? "#afafaf" : "#43464a",
+                    borderRadius: "15px", padding: "inherit",marginTop:"2rem"
+                }} >
+                    <Paper elevation={2}  id="slideInAnim" sx={{
+                        marginTop: "5px",
+                        display: "flex", justifyContent: "center", alignItems: "center", background: thememode ? "#7e0b932e" : "#e7e7e7", color: thememode ? "white" : "black",
+                        borderRadius: "10px", height: "3rem",
+                        padding: "1rem"
+                    }}>
+                        <Typography variant="h6" component="h4">
+                            My Progress
+                        </Typography>
+                    </Paper>
+                    <Box overflow={"scroll"}  sx={{ height: "30%", padding: "1rem", height: "30%", padding: "1rem", display: "flex" }}>
+                        <CircularProgressbar styles={{ transform:"scale(1)"}} value={20} text={`${20}%`} />
+                    </Box>
+                </Paper>
 
       </Paper>
       </div>

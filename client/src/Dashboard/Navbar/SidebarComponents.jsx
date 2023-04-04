@@ -58,7 +58,7 @@ function SidebarComponents() {
           </Button>
 
           <Button sx={{ marginY: 1 }} onClick={() => navigate("/dashboard/myteam")} >
-            <GroupsIcon sx={{ marginX: 1 }} /> My teams
+            <GroupsIcon sx={{ marginX: 1 }} /> My Class
           </Button>
 
         </Box>
