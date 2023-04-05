@@ -11,6 +11,7 @@ const bodyParser = require("body-parser");
 const puppeteer = require('puppeteer');
 const fs = require('fs');
 const ejs= require('ejs');
+const nodemailer = require('nodemailer');
 
 
 app.use(express.static(path.join(__dirname,'/../client/build')));
@@ -95,6 +96,31 @@ app.post('/register',async(req,res)=>{
                     res.redirect('/register')
                 }
                 // console.log("result ",result);
+                
+                //here need to add code for sending mail;
+                var transporter = nodemailer.createTransport({
+                    service: 'gmail',
+                    auth: {
+                      user: process.env.GmailDm1,
+                      pass: process.env.passGmailDm1
+                    }
+                  });
+                  
+                  var mailOptions = {
+                    from: process.env.GmailDm1,
+                    to: username,
+                    subject: 'Welcome to Peershala',
+                    html: '<h1>HEllo Welcome to Perrshala!</h1>'
+                  };
+                  
+                  transporter.sendMail(mailOptions, function(error, info){
+                    if (error) {
+                      console.log(error);
+                    } else {
+                      console.log('Email sent: ' + info.response);
+                    }
+                  });
+        
                 console.log('Account created for ',username);
                 res.sendStatus(200);
             })
