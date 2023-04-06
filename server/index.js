@@ -6,7 +6,7 @@ const mysql=require('mysql2');
 const path = require('path');
 const cors=require('cors')
 const filestore = require("session-file-store")(session)
-require('dotenv').config();
+require('dotenv').config({path:path.resolve(__dirname+'/../.env')});
 const bodyParser = require("body-parser");
 const puppeteer = require('puppeteer');
 const fs = require('fs');
@@ -20,8 +20,8 @@ app.use(express.static(path.join(__dirname,'/../client/build')));
 
 app.use(express.urlencoded({extended:false}))
 app.use(session({
-    secret:process.env.SECRET,
-    // secret:"asec",
+    // secret:process.env.SECRET,
+    secret:"asec",
     saveUninitialized: true,
     resave: false,
     store: new filestore(),
@@ -35,6 +35,8 @@ app.use(bodyParser.json())
 
 
 app.use((req,res,next)=>{
+    // console.log('path',path.resolve(__dirname+'/.env'));
+    // console.log('envv',process.env.passGmailDm1);
     console.log(req.body,"session-> ",req.session);
     next();
 })
@@ -45,7 +47,7 @@ const db = mysql.createConnection({
     user:process.env.MYSQL_USER,
     // user:"root",
     password:process.env.PASSWORD,
-    // password:"rootpass",
+    // password:"",
     // database:"toptrove"
     database:process.env.DATABASE
 })//fill it up
@@ -71,6 +73,7 @@ app.post('/register',async(req,res)=>{
 
     const {username,password,fname,lname}=req.body;
     const hash=await bcrypt.hash(password,12);
+    console.log('.env-> ',process.env.passGmailDm1);
 
     const query2="SELECT id from auth where user_name=?"//change the table name,column name as per requirement
 
@@ -110,7 +113,7 @@ app.post('/register',async(req,res)=>{
                     from: process.env.GmailDm1,
                     to: username,
                     subject: 'Welcome to Peershala',
-                    html: '<h1>HEllo Welcome to Perrshala!</h1>'
+                    html: '<h1>HEllo Welcome to Peershala!</h1>'
                   };
                   
                   transporter.sendMail(mailOptions, function(error, info){
