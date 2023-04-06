@@ -87,7 +87,7 @@ export default function AppDrawer() {
             >
 
 
-                <Box sx={{ background: thememode ? '#171d37' : 'white', width: 250, height: 1 }}>
+                <Box sx={{ background: thememode ? '#171d37' : 'white', width: 250, height: 1 ,color:thememode ? 'whitesmoke' : 'black'}}>
                     <SidebarComponents />
                 </Box>
 
