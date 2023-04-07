@@ -32,7 +32,9 @@ export default function BottomNav() {
                 }}
             >
                 <BottomNavigationAction onClick={() => navigate("/dashboard")} sx={{ color: thememode ? "white" : "black", }} label="Profile" icon={<AccountCircleIcon />} />
-                <BottomNavigationAction onClick={() => navigate("/dashboard/achieve")} sx={{ color: thememode ? "white" : "black", }} label="Achivements" icon={<EmojiEventsIcon />} />
+
+                <BottomNavigationAction onClick={() => navigate("/dashboard/achieve")} sx={{ color: thememode ? "white" : "black", }} label="Certificates" icon={<EmojiEventsIcon />} />
+                <BottomNavigationAction onClick={() => navigate("/dashboard/myteam")} sx={{ color: thememode ? "white" : "black", }} label="My Class" icon={<GroupsIcon />} />
                 <BottomNavigationAction onClick={() => navigate("/dashboard/myteam")} sx={{ color: thememode ? "white" : "black", }} label="My Class" icon={<GroupsIcon />} />
             </BottomNavigation>
         </Box>

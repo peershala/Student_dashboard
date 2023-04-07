@@ -1,6 +1,6 @@
 import { Box, Button } from '@mui/material'
-import React,{useContext, useEffect} from 'react'
-import { Outlet, Route, Routes,useNavigate } from 'react-router-dom'
+import React, { useContext, useEffect } from 'react'
+import { Outlet, Route, Routes, useNavigate } from 'react-router-dom'
 import { AppState } from '../context/ContextProvider'
 import Achievements from './Achievements/Achievements'
 import Myprofile from './MyProfile/Myprofile'
@@ -13,14 +13,14 @@ import { UserContext } from '../context/ContextProvider'
 
 function Dashboard() {
     const { thememode } = AppState()
-    const [userContext,setContext]=useContext(UserContext);
-    const navigate=useNavigate();
+    const [userContext, setContext] = useContext(UserContext);
+    const navigate = useNavigate();
 
     // console.log('token-> ',userContext.token);
 
-    useEffect(()=>{
+    useEffect(() => {
         navigate('/dashboard');
-    },[]);
+    }, []);
     // const id=localStorage.getItem("userstore");
     // console.log('store id-> ',id);
 
@@ -36,18 +36,18 @@ function Dashboard() {
 
             <AppNavbar />
             <Sidebar />
-            <Box 
-            sx={{
-                marginBottom:{ xs: '4rem', sm: '4rem', md: '4rem', lg: '0rem', xl: '0rem' },
-                marginTop:{ xs: '4rem', sm: '4rem', md: '4rem', lg: '0.1rem', xl: '0rem' },
-                width: { xs: '92', sm: '92', md: '92', lg: '100%', xl: '100%' },
-                padding: "1rem", display: "flex", flexDirection: "column"
-            }}>
+            <Box
+                sx={{
+                    marginBottom: { xs: '4rem', sm: '4rem', md: '4rem', lg: '0rem', xl: '0rem' },
+                    marginTop: { xs: '4rem', sm: '4rem', md: '4rem', lg: '0.1rem', xl: '0rem' },
+                    width: { xs: '92', sm: '92', md: '92', lg: '100%', xl: '100%' },
+                    padding: "1rem", display: "flex", flexDirection: "column"
+                }}>
                 <Outlet />
             </Box>
             {/* <Myprofile/> */}
 
-            <BottomNav />
+            {/* <BottomNav /> */}
         </Box>
     )
 }

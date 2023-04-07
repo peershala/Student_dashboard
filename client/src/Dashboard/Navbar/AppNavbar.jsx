@@ -34,7 +34,7 @@ export default function AppNavbar() {
                     <img src={logo} alt="Peershala" style={{ fontSize: "2rem", filter: thememode ? 'invert(100%)' : "", height: "2.5rem" }} />
 
 
-                    <Button color="inherit"><Avatar alt="" src="" /></Button>
+                    <Box color="inherit"></Box>
 
                 </Toolbar>
             </AppBar>

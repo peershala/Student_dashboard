@@ -1,6 +1,6 @@
 import { Avatar, Box, Button, Divider } from '@mui/material'
 import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { useMatch, useNavigate } from 'react-router-dom';
 import { AppState } from '../../context/ContextProvider';
 import ThemeToggleButton from './ThemeToggleButton'
 import logo from '../../assets/logo.png';
@@ -8,11 +8,18 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import GroupsIcon from '@mui/icons-material/Groups';
 import Alert from './Alert';
+import { AutoStories } from '@mui/icons-material';
 
 
 function SidebarComponents() {
   const { thememode } = AppState()
   const navigate = useNavigate()
+
+  const profileLocation = useMatch("/dashboard")
+  const myClassLocation = useMatch("/dashboard/myteam")
+  const myCoursesLocation = useMatch("/dashboard/myCourses")
+  const certificatesLocation = useMatch("/dashboard/achieve")
+  const allCoursesLocation = useMatch("/dashboard/allCourses")
 
   return (
     <Box sx={{ height: 1, overflow: "scroll" }}>
@@ -49,16 +56,24 @@ function SidebarComponents() {
 
         <Box sx={{ display: "flex", flexDirection: "column", marginY: 2 }}>
 
-          <Button sx={{ marginY: 1 }} onClick={() => navigate("/dashboard")} >
+          <Button color="secondary" variant={profileLocation?"contained":""} sx={{ marginY: 1 }} onClick={() => navigate("/dashboard")} >
             <AccountCircleIcon sx={{ marginX: 1 }} />Profile
           </Button>
 
-          <Button sx={{ marginY: 1 }} onClick={() => navigate("/dashboard/achieve")} >
-            <EmojiEventsIcon sx={{ marginX: 1 }} /> Achievements
+          <Button color="secondary" variant={myClassLocation?"contained":""} sx={{ marginY: 1 }} onClick={() => navigate("/dashboard/myteam")} >
+            <GroupsIcon sx={{ marginX: 1 }} /> My Class
           </Button>
 
-          <Button sx={{ marginY: 1 }} onClick={() => navigate("/dashboard/myteam")} >
-            <GroupsIcon sx={{ marginX: 1 }} /> My Class
+          <Button color="secondary" variant={myCoursesLocation?"contained":""} sx={{ marginY: 1 }} onClick={() => navigate("/dashboard/myCourses")} >
+            <AutoStories sx={{ marginX: 1 }} /> My Courses
+          </Button>
+
+          <Button color="secondary" variant={certificatesLocation?"contained":""} sx={{ marginY: 1 }} onClick={() => navigate("/dashboard/achieve")} >
+            <EmojiEventsIcon sx={{ marginX: 1 }} /> Certificates
+          </Button>
+
+          <Button color="secondary" variant={allCoursesLocation?"contained":""} sx={{ marginY: 1 }} onClick={() => navigate("/dashboard/allCourses")} >
+            <AutoStories sx={{ marginX: 1 }} /> All Courses
           </Button>
 
         </Box>
