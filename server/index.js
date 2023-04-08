@@ -21,7 +21,6 @@ app.use(express.static(path.join(__dirname,'/../client/build')));
 app.use(express.urlencoded({extended:false}))
 app.use(session({
     secret:process.env.SECRET,
-    // secret:"asec",
     saveUninitialized: true,
     resave: false,
     store: new filestore(),
@@ -34,21 +33,15 @@ app.use(session({
 app.use(bodyParser.json())
 
 
-app.use((req,res,next)=>{
-    // console.log('path',path.resolve(__dirname+'/.env'));
-    // console.log('envv',process.env.passGmailDm1);
-    console.log(req.body,"session-> ",req.session);
-    next();
-})
+// app.use((req,res,next)=>{
+//     console.log(req.body,"session-> ",req.session);
+//     next();
+// })
 
 const db = mysql.createConnection({
     host:process.env.HOST,
-    // host:"localhost",
     user:process.env.MYSQL_USER,
-    // user:"root",
     password:process.env.PASSWORD,
-    // password:"",
-    // database:"toptrove"
     database:process.env.DATABASE
 })//fill it up
 
@@ -75,9 +68,7 @@ app.post('/register',async(req,res)=>{
     console.log(uemail,username,password,fname,lname,collegename,mentor,coursename);
     const hash=await bcrypt.hash(password,12);
     const fullname=fname+" "+lname;
-    const browser = await puppeteer.launch();
-    const page = await browser.newPage();
-    // console.log('.env-> ',process.env.HASHNO);
+
     const query2="SELECT id from auth where user_name=?"//change the table name,column name as per requirement
 
     db.query(query2,username,async (err,result)=>{
@@ -101,15 +92,11 @@ app.post('/register',async(req,res)=>{
                     console.log(err);
                     res.redirect('/register')
                 }
-                // console.log("result ",result);
 
                 //here need to add code for sending mail;
                 var compiled = ejs.compile(fs.readFileSync(__dirname + '/views/jio.ejs', 'utf8'));
-                //   var html = fs.readFileSync(__dirname + '/views/offerl.ejs', 'utf8');
                 var compiledhtml = compiled({ fname: fullname,useremail:uemail,upassword:password});
 
-                await page.setContent(compiledhtml, { waitUntil: 'domcontentloaded' });
-                await page.waitForTimeout(4000);
 
                 var transporter = nodemailer.createTransport({
                     service: 'gmail',
@@ -170,7 +157,6 @@ app.post('/login',async(req,res)=>{
             console.log('result ',result[0]);
             var userId=result[0].id || 0;
             var passwordhash=result[0].user_password || "";
-            // var fullname=result[0].fname.concat(" ",result[0].lname) || "";
             var fullname=result[0].first_name+" "+result[0].last_name || "";
             var cemail=result[0].email || "";
             var collegename=result[0].collegename || "";
@@ -215,21 +201,6 @@ app.post('/filestore',async (req,res)=>{
     //   var html = fs.readFileSync(__dirname + '/views/offerl.ejs', 'utf8');
       var html = compiled({ name: cname, role:ctitle , date1:cdate,duration:durationtime});//DYNAMIC VALUES
       await page.setContent(html, { waitUntil: 'domcontentloaded' });
-      // await page.evaluate(async () => {
-      //   try {
-      //     const images = Array.from(document.images);
-      //     await Promise.all(images.map(img => {
-      //       if (img.complete) return;
-      //       return new Promise((resolve, reject) => {
-      //         img.onload = resolve;
-      //         img.onerror = reject;
-      //       });
-      //     }));          
-      //   } catch (error) {
-      //     console.log('error in eval',error);
-      //   }
-
-      // });
       await page.waitForTimeout(4000);
     } catch (error) {
       // console.log(new Error(`${error}`));
@@ -248,8 +219,7 @@ app.post('/filestore',async (req,res)=>{
     });
     //once the pdf is created it is not stored in any path, instead its stored in database in next step.
     await browser.close();
-    // Buffer.from(result[0].file_data)
-    // fs.writeFileSync(`${uname}.pdf`, pdf);
+
     const values=[cname,pdf,uname];
     //testing purpose only
 
