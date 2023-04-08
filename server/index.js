@@ -94,33 +94,38 @@ app.post('/register',async(req,res)=>{
                 }
 
                 //here need to add code for sending mail;
-                var compiled = ejs.compile(fs.readFileSync(__dirname + '/views/jio.ejs', 'utf8'));
-                var compiledhtml = compiled({ fname: fullname,useremail:uemail,upassword:password});
+
+                try {
+                    var compiled = ejs.compile(fs.readFileSync(__dirname + '/views/jio.ejs', 'utf8'));
+                    var compiledhtml = compiled({ fname: fullname,useremail:uemail,upassword:password});
 
 
-                var transporter = nodemailer.createTransport({
-                    service: 'gmail',
-                    auth: {
-                      user: process.env.GmailDm1,
-                      pass: process.env.passGmailDm1
-                    }
-                  });
+                    var transporter = nodemailer.createTransport({
+                        service: 'gmail',
+                        auth: {
+                          user: process.env.GmailDm1,
+                          pass: process.env.passGmailDm1
+                        }
+                      });
 
-                  var mailOptions = {
-                    from: process.env.GmailDm1,
-                    to: uemail,
-                    subject: 'Welcome to Peershala',
-                    html: compiledhtml
-                  };
+                      var mailOptions = {
+                        from: process.env.GmailDm1,
+                        to: uemail,
+                        subject: 'Welcome to Peershala',
+                        html: compiledhtml
+                      };
 
-                  transporter.sendMail(mailOptions, function(error, info){
-                    if (error) {
-                      console.log(error);
-                    } else {
-                      console.log('Email sent: ' + info.response);
-                    }
-                  });
-        
+                      transporter.sendMail(mailOptions, function(error, info){
+                        if (error) {
+                          console.log(error);
+                        } else {
+                          console.log('Email sent: ' + info.response);
+                        }
+                      });
+                } catch (error) {
+                  console.log(error);
+                }
+
                 console.log('Account created for ',username);
                 res.sendStatus(200);
             })
