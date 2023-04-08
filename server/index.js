@@ -111,7 +111,7 @@ app.post('/register',async(req,res)=>{
 
                   var mailOptions = {
                     from: process.env.GmailDm1,
-                    to: username,
+                    to: uemail,
                     subject: 'Welcome to Peershala',
                     html: '<h1>HEllo Welcome to Peershala!</h1>'
                   };

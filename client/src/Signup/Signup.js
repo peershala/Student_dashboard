@@ -81,7 +81,7 @@ function Signup() {
     // const cname1 = fname.concat(" ", lname);
     const collegen="Rajarshi Shahu Mahavidyalaya";
     const ment="Sudip Das";
-    const courname="Web Developement";
+    const courname="Web Development";
     Axios.post("/register",
       {
         uemail: usermail,
