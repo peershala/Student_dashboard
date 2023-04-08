@@ -20,8 +20,8 @@ app.use(express.static(path.join(__dirname,'/../client/build')));
 
 app.use(express.urlencoded({extended:false}))
 app.use(session({
-    // secret:process.env.SECRET,
-    secret:"asec",
+    secret:process.env.SECRET,
+    // secret:"asec",
     saveUninitialized: true,
     resave: false,
     store: new filestore(),
@@ -71,10 +71,10 @@ app.get("/*",(req,res)=>
 
 app.post('/register',async(req,res)=>{
 
-    const {username,password,fname,lname}=req.body;
+    const {uemail,username,password,fname,lname,collegename,mentor,coursename}=req.body||"null";
+    console.log(uemail,username,password,fname,lname,collegename,mentor,coursename);
     const hash=await bcrypt.hash(password,12);
-    console.log('.env-> ',process.env.passGmailDm1);
-
+    // console.log('.env-> ',process.env.HASHNO);
     const query2="SELECT id from auth where user_name=?"//change the table name,column name as per requirement
 
     db.query(query2,username,(err,result)=>{
@@ -85,13 +85,13 @@ app.post('/register',async(req,res)=>{
         }
         if(result.length!=0)
         {
-            console.log('Username already exists');
+            console.log('User already exists');
             res.sendStatus(400)
         }
         else{
-            const values=[username,hash,fname,lname];
+            const values=[username,hash,fname,lname,uemail,collegename,mentor,coursename];
 
-            const query="INSERT INTO auth(`user_name`,`user_password`,`first_name`,`last_name`) values (?,?,?,?)"//change the table name,column name as per requirement
+            const query="INSERT INTO auth(`user_name`,`user_password`,`first_name`,`last_name`,`email`,`collegename`,`mentor`,`coursename`) values (?,?,?,?,?,?,?,?)"//change the table name,column name as per requirement
             db.query(query,values,(err,result)=>{
                 if(err)
                 {
@@ -99,7 +99,7 @@ app.post('/register',async(req,res)=>{
                     res.redirect('/register')
                 }
                 // console.log("result ",result);
-                
+
                 //here need to add code for sending mail;
                 var transporter = nodemailer.createTransport({
                     service: 'gmail',
@@ -108,14 +108,14 @@ app.post('/register',async(req,res)=>{
                       pass: process.env.passGmailDm1
                     }
                   });
-                  
+
                   var mailOptions = {
                     from: process.env.GmailDm1,
-                    to: username,
+                    to: uemail,
                     subject: 'Welcome to Peershala',
                     html: '<h1>HEllo Welcome to Peershala!</h1>'
                   };
-                  
+
                   transporter.sendMail(mailOptions, function(error, info){
                     if (error) {
                       console.log(error);
@@ -140,7 +140,7 @@ app.post('/login',async(req,res)=>{
         res.statusCode = 400;
         res.send("Invalid Details");
     }
-    const query2="SELECT id,user_password from auth where user_name=?"//change the table name,column name as per requirement
+    const query2="SELECT * from auth where email=?"//change the table name,column name as per requirement
 
     db.query(query2,username,async (err,result)=>{
         if(err)
@@ -157,13 +157,25 @@ app.post('/login',async(req,res)=>{
             res.send("Unauthorized");
         }
         else{
+            console.log('result ',result[0]);
             var userId=result[0].id || 0;
             var passwordhash=result[0].user_password || "";
+            // var fullname=result[0].fname.concat(" ",result[0].lname) || "";
+            var fullname=result[0].first_name+" "+result[0].last_name || "";
+            var cemail=result[0].email || "";
+            var collegename=result[0].collegename || "";
+            var mentorname=result[0].mentor || "";
+            var coursename=result[0].coursename || "";
                 const validuser=await bcrypt.compare(password,passwordhash);
                 if(validuser)
                 {
                     req.session.user_id=userId;
                     req.session.username=username;
+                    req.session.cname=fullname;
+                    req.session.umail=cemail;
+                    req.session.collegename=collegename;
+                    req.session.mname=mentorname;
+                    req.session.coursename=coursename;
 
                     console.log("valid",req.session);
                     res.send(req.session);
