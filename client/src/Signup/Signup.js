@@ -31,7 +31,7 @@ function Signup() {
   const [fname, setfname] = useState('');
   const [lname, setlname] = useState('');
   // const [cname,setcname]=useState('');
-  const [ctitle1, settitle] = useState('');
+  const [uname, setuname] = useState('');
   // const [cdate1,setdate]=useState('');
   // const [cscore1,setscore]=useState('');
   const [userContext, setUserContext] = useContext(UserContext);
@@ -71,32 +71,39 @@ function Signup() {
     // console.log(usermail);
     // console.log(userpass);
     // navigate('/dashboard');
-    const datenum = d.getDate();
-    const datemonth = d.getMonth();
-    const dateyear = d.getFullYear()
+    // const datenum = d.getDate();
+    // const datemonth = d.getMonth();
+    // const dateyear = d.getFullYear()
 
-    const cdate1 = `${datenum}/${datemonth}/${dateyear}`;
+    // const cdate1 = `${datenum}/${datemonth}/${dateyear}`;
     // setdate(`${datenum}/${datemonth}/${dateyear}`);
-    const cscore1 = "+O";
     // setscore("O+");
-    const cname1 = fname.concat(" ", lname);
+    // const cname1 = fname.concat(" ", lname);
+    const collegen="Rajarshi Shahu Mahavidyalaya";
+    const ment="Sudip Das";
+    const courname="Web Developement";
     Axios.post("/register",
       {
-        username: usermail,
-        password: userpass
+        uemail: usermail,
+        username:uname,
+        password: userpass,
+        fname:fname,
+        lname:lname,
+        collegename:collegen,
+        mentor:ment,
+        coursename:courname
       })
       .then(async response => {
         // console.log('no error');
         if (response.status == 200) {
           // console.log(cdate1,cscore1);
-          Axios.post('/filestore', { cname: cname1, ctitle: ctitle1, cscore: cscore1, cdate: cdate1, uname: usermail }).then(res => {
-            console.log(`File for  ${usermail} created`);
-          })
-            .catch(e => {
-              seterrormessage(e);
+          // Axios.post('/filestore', { cname: cname1, username: uname, cscore: cscore1, cdate: cdate1, uemail: usermail }).then(res => {
+          //   console.log(`File for  ${usermail} created`);
+          // })
+          //   .catch(e => {
+          //     seterrormessage(e);
 
-            })
-
+          //   })
           setLoading(false)
           setSuccess(true)
           setOpensuccess(true)
@@ -261,7 +268,7 @@ function Signup() {
             {/* <CssTextField type="email" fullWidth label="Email" /> */}
             <TextField sx={{ "& input": { color: loginthememode ? "white" : "black", } }} color='secondary' id="outlined-basic" label="Email" variant="outlined" type='email' onChange={(e) => { setmail(e.target.value) }} placeholder="email" />
 
-            <TextField sx={{ "& input": { color: loginthememode ? "white" : "black", } }} color='secondary' id="outlined-basic" label="username" variant="outlined" type='text' onChange={(e) => { settitle(e.target.value) }} placeholder="user name" />
+            <TextField sx={{ "& input": { color: loginthememode ? "white" : "black", } }} color='secondary' id="outlined-basic" label="username" variant="outlined" type='text' onChange={(e) => { setuname(e.target.value) }} placeholder="user name" />
 
             <OutlinedInput
               type={showPassword ? 'text' : 'password'}

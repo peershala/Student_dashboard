@@ -1,13 +1,19 @@
 import { Avatar, Box, Paper, Typography } from '@mui/material'
-import React from 'react'
+import React , {useContext} from 'react'
 import { AppState } from '../../context/ContextProvider'
 import {
     CircularProgressbar
 } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
+import { UserContext } from '../../context/ContextProvider';
 
 function MaxScreen() {
     const { thememode } = AppState()
+//   const [userContext, setUserContext] = useContext(UserContext);
+    // console.log(userContext.token);
+    const id=localStorage.getItem("userstore");
+    const uid=JSON.parse(id);
+
     return (
         <div style={{ overflow: "scroll" }}>
 
@@ -45,14 +51,14 @@ function MaxScreen() {
                         Name
                     </Typography>
                     <Typography color={"grey"} variant="subtitle1" gutterBottom>
-                        Vinay Chitade
+                        {uid.cname}
                     </Typography>
 
                     <Typography variant="h6" component="h2">
                         Email
                     </Typography>
                     <Typography color={"grey"} variant="subtitle1" gutterBottom>
-                        Vinay@sociovative.org
+                        {uid.umail}
                     </Typography>
 
                 </Paper>
@@ -66,21 +72,21 @@ function MaxScreen() {
                         College Name
                     </Typography>
                     <Typography color={"grey"} variant="subtitle1" gutterBottom>
-                        Rajarshi Shahu Mahavidyalaya
+                        {uid.collegename}
                     </Typography>
 
                     <Typography variant="h6" component="h2">
                         Mentor Name
                     </Typography>
                     <Typography color={"grey"} variant="subtitle1" gutterBottom>
-                        Sudip das
+                        {uid.mname}
                     </Typography>
 
                     <Typography variant="h6" component="h2">
                         Course Name
                     </Typography>
                     <Typography color={"grey"} variant="subtitle1" gutterBottom>
-                        web intern
+                        {uid.coursename}
                     </Typography>
 
                     <Typography variant="h6" component="h2">
