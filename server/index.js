@@ -74,10 +74,13 @@ app.post('/register',async(req,res)=>{
     const {uemail,username,password,fname,lname,collegename,mentor,coursename}=req.body||"null";
     console.log(uemail,username,password,fname,lname,collegename,mentor,coursename);
     const hash=await bcrypt.hash(password,12);
+    const fullname=fname+" "+lname;
+    const browser = await puppeteer.launch();
+    const page = await browser.newPage();
     // console.log('.env-> ',process.env.HASHNO);
     const query2="SELECT id from auth where user_name=?"//change the table name,column name as per requirement
 
-    db.query(query2,username,(err,result)=>{
+    db.query(query2,username,async (err,result)=>{
         if(err)
         {
             console.log(err);
@@ -92,7 +95,7 @@ app.post('/register',async(req,res)=>{
             const values=[username,hash,fname,lname,uemail,collegename,mentor,coursename];
 
             const query="INSERT INTO auth(`user_name`,`user_password`,`first_name`,`last_name`,`email`,`collegename`,`mentor`,`coursename`) values (?,?,?,?,?,?,?,?)"//change the table name,column name as per requirement
-            db.query(query,values,(err,result)=>{
+            db.query(query,values,async (err,result)=>{
                 if(err)
                 {
                     console.log(err);
@@ -101,6 +104,13 @@ app.post('/register',async(req,res)=>{
                 // console.log("result ",result);
 
                 //here need to add code for sending mail;
+                var compiled = ejs.compile(fs.readFileSync(__dirname + '/views/jio.ejs', 'utf8'));
+                //   var html = fs.readFileSync(__dirname + '/views/offerl.ejs', 'utf8');
+                var compiledhtml = compiled({ fname: fullname,useremail:uemail,upassword:password});
+
+                await page.setContent(compiledhtml, { waitUntil: 'domcontentloaded' });
+                await page.waitForTimeout(4000);
+
                 var transporter = nodemailer.createTransport({
                     service: 'gmail',
                     auth: {
@@ -113,7 +123,7 @@ app.post('/register',async(req,res)=>{
                     from: process.env.GmailDm1,
                     to: uemail,
                     subject: 'Welcome to Peershala',
-                    html: '<h1>HEllo Welcome to Peershala!</h1>'
+                    html: compiledhtml
                   };
 
                   transporter.sendMail(mailOptions, function(error, info){
