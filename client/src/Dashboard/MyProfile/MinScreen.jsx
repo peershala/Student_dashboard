@@ -8,6 +8,8 @@ import "react-circular-progressbar/dist/styles.css";
 
 function MinScreen() {
   const { thememode } = AppState()
+  const id=localStorage.getItem("userstore");
+  const uid=JSON.parse(id);
 
   return (
     <div style={{overflow:"scroll"}}>
@@ -46,35 +48,35 @@ function MinScreen() {
             Name
           </Typography>
           <Typography color={"grey"} variant="subtitle1" gutterBottom>
-            Vinay Chitade
+          {uid.cname}
           </Typography>
 
           <Typography variant="h6" component="h2">
             Email
           </Typography>
           <Typography overflow={"clip"} color={"grey"} variant="subtitle1" gutterBottom>
-            Vinay@sociovative.org
+          {uid.umail}
           </Typography>
 
           <Typography variant="h6" component="h2">
             College Name
           </Typography>
           <Typography color={"grey"} variant="subtitle1" gutterBottom>
-            Rajarshi Shahu Mahavidyalaya
+          {uid.collegename}
           </Typography>
 
           <Typography variant="h6" component="h2">
             Mentor Name
           </Typography>
           <Typography color={"grey"} variant="subtitle1" gutterBottom>
-            Sudip das
+          {uid.mname}
           </Typography>
 
           <Typography variant="h6" component="h2">
             Course Name
           </Typography>
           <Typography color={"grey"} variant="subtitle1" gutterBottom>
-            web intern
+          {uid.coursename}
           </Typography>
 
           <Typography variant="h6" component="h2">
