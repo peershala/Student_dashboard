@@ -265,10 +265,12 @@ function Signup() {
 
             </Box>
 
+            <TextField sx={{ "& input": { color: loginthememode ? "white" : "black", } }} color='secondary' id="outlined-basic" label="college name" variant="outlined" type='text' onChange={(e) => { return(e.target.value) }} placeholder="college name" />
             {/* <CssTextField type="email" fullWidth label="Email" /> */}
             <TextField sx={{ "& input": { color: loginthememode ? "white" : "black", } }} color='secondary' id="outlined-basic" label="Email" variant="outlined" type='email' onChange={(e) => { setmail(e.target.value) }} placeholder="email" />
 
             <TextField sx={{ "& input": { color: loginthememode ? "white" : "black", } }} color='secondary' id="outlined-basic" label="username" variant="outlined" type='text' onChange={(e) => { setuname(e.target.value) }} placeholder="user name" />
+           
 
             <OutlinedInput
               type={showPassword ? 'text' : 'password'}
@@ -291,21 +293,18 @@ function Signup() {
 
           </Box>
 
-          <Box sx={{ display: "flex", flexDirection: "column", height: "5rem", width: "100%", justifyContent: "space-between" }}>
+          <Box  sx={{ display: "flex", flexDirection: "column", height: "3rem", width: "100%", justifyContent: "space-between" }}>
 
             <ColorButton variant="contained" onClick={submitHandler} disabled={loading ? true : false} startIcon={success ? <CheckCircleIcon /> : ""}>
               {success ? "" : loading ? <CircularProgress /> : "Sign Up"}
 
             </ColorButton>
 
-            <Link href="#" underline="hover">
-              {'Forget Password?"'}
-            </Link>
             {/* <Box sx={{display:"flex",justifyContent:"space-between"}}>
             </Box> */}
           </Box>
 
-          <Divider sx={{ color: loginthememode ? "#afafaf" : "#43464a", marginY: 3, }}>
+          <Divider sx={{ color: loginthememode ? "#afafaf" : "#43464a", marginY: 2, }}>
             Already have an account?
           </Divider>
 
