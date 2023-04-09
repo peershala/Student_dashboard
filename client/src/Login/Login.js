@@ -19,6 +19,7 @@ import Axios from 'axios';
 import { UserContext } from '../context/ContextProvider';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import ForgetPassword from './ForgetPassword';
 
 Axios.defaults.withCredentials = true;
 
@@ -282,9 +283,9 @@ function Login() {
             <ColorButton variant="contained" disabled={loading ? true : false} startIcon={success ? <CheckCircleIcon /> : ""} onClick={submitHandler}>
               {success ? "" : loading ? <CircularProgress /> : "Login"}
             </ColorButton>
-            <Link href="#" underline="hover">
-              {'Forget Password?"'}
-            </Link>
+
+              <ForgetPassword/>
+              
             {/* <Box sx={{display:"flex",justifyContent:"space-between"}}>
             </Box> */}
           </Box>
