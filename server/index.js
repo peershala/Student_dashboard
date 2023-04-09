@@ -20,7 +20,8 @@ app.use(express.static(path.join(__dirname, '/../client/build')));
 
 app.use(express.urlencoded({ extended: false }))
 app.use(session({
-  secret: "bdewu",
+  // secret: "bdewu",
+  secret: process.env.SECRET,
   saveUninitialized: true,
   resave: false,
   store: new filestore(),
@@ -39,10 +40,10 @@ app.use(bodyParser.json())
 // })
 
 const db = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "aryan@9870#meow",
-  database: "toptrove"
+  host: process.env.HOST,
+  user: process.env.MYSQL_USER,
+  password: process.env.PASSWORD,
+  database:process.env.DATABASE
 })//fill it up
 
 db.connect(function (err) {
