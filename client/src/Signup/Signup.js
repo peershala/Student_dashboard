@@ -46,7 +46,8 @@ function Signup() {
   const [opensuccess, setOpensuccess] = useState(false);
   const [errormessage, seterrormessage] = useState("")
   const [successmessage, setsuccessmessage] = useState("")
-
+  const [collegen, setcollege] = useState("")
+  
   const handleClose1 = (event, reason) => {
     if (reason === 'clickaway') {
       setOpenerror(false);
@@ -79,7 +80,7 @@ function Signup() {
     // setdate(`${datenum}/${datemonth}/${dateyear}`);
     // setscore("O+");
     // const cname1 = fname.concat(" ", lname);
-    const collegen="Rajarshi Shahu Mahavidyalaya";
+    // const collegen="Rajarshi Shahu Mahavidyalaya";
     const ment="Sudip Das";
     const courname="Web Development";
     Axios.post("/register",
@@ -265,7 +266,7 @@ function Signup() {
 
             </Box>
 
-            <TextField sx={{ "& input": { color: loginthememode ? "white" : "black", } }} color='secondary' id="outlined-basic" label="college name" variant="outlined" type='text' onChange={(e) => { return(e.target.value) }} placeholder="college name" />
+            <TextField sx={{ "& input": { color: loginthememode ? "white" : "black", } }} color='secondary' id="outlined-basic" label="college name" variant="outlined" type='text' onChange={(e) => { setcollege(e.target.value) }} placeholder="college name" />
             {/* <CssTextField type="email" fullWidth label="Email" /> */}
             <TextField sx={{ "& input": { color: loginthememode ? "white" : "black", } }} color='secondary' id="outlined-basic" label="Email" variant="outlined" type='email' onChange={(e) => { setmail(e.target.value) }} placeholder="email" />
 
