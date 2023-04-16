@@ -43,7 +43,7 @@ function Cards() {
                 background: thememode ? "#101534" : "#d9d9d9",
                 borderRadius: "6px", padding: "inherit",
                 width: "13rem",
-                height: "20rem",
+                height: "25rem",
                 marginTop:"1rem"
             }}>
 
@@ -59,10 +59,10 @@ function Cards() {
 
                 <Box sx={{ wordWrap: "break-word" }} >
                     <Typography variant="h4" component="h2">
-                        Offer Letter
+                        Course Completion Certificate
                     </Typography>
                     <Typography margin={3} variant="p" component="p">
-                        Please download your Offer Letter from here...
+                        Please download your Course Completion Certificate from here...
                     </Typography>
                 </Box>
 
@@ -79,7 +79,7 @@ function Cards() {
 
 {/* ------------------------------CARD II ------------------------------ */}
 
-            <Paper id="slideFromBottomAnim" elevation={6} sx={{
+            {/* <Paper id="slideFromBottomAnim" elevation={6} sx={{
                 display: "flex",
                 flexDirection: "column",
                 color: thememode ? "#afafaf" : "#43464a",
@@ -108,12 +108,12 @@ function Cards() {
                     }} variant="contained" >Download</Button>
                 </Box>
 
-            </Paper>
+            </Paper> */}
 
 
 {/* --------------------------------- Card III ------------------------------- */}
 
-            <Paper id="slideFromBottomAnim" elevation={6} sx={{
+            {/* <Paper id="slideFromBottomAnim" elevation={6} sx={{
                 display: "flex",
                 flexDirection: "column",
                 color: thememode ? "#afafaf" : "#43464a",
@@ -142,7 +142,7 @@ function Cards() {
                     }} variant="contained" >Download</Button>
                 </Box>
 
-            </Paper>
+            </Paper> */}
 
         </>
     )
