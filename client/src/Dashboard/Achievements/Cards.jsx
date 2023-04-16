@@ -43,7 +43,7 @@ function Cards() {
                 background: thememode ? "#101534" : "#d9d9d9",
                 borderRadius: "6px", padding: "inherit",
                 width: "13rem",
-                // height: "20rem",
+                height: "25rem",
                 marginTop:"1rem"
             }}>
 
