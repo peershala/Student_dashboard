@@ -13,6 +13,7 @@ import { useState, useContext } from "react";
 import Loader from "./loader";
 import Courses from "./Dashboard/Courses/Courses";
 import MyCourses from "./Dashboard/MyCourses/Courses";
+import ResetPassword from "./ResetPassword/ResetPassword";
 
 function App() {
 
@@ -26,7 +27,7 @@ function App() {
         {/* <Route exact path="/" element={<Home />}></Route> */}
         <Route path="/" element={<Dashboard />}></Route>
         <Route path="/login" element={<Login />}></Route>
-        {/* <Route path="/signup" element={<Signup />}></Route> */}
+        <Route path="/signup" element={<Signup />}></Route>
         <Route path="/dashboard" element={<Dashboard />}>
           <Route exact path="" element={<Myprofile />} />
           <Route path="myteam" element={<Myteam />} />
@@ -34,6 +35,8 @@ function App() {
           <Route path="achieve" element={<Achievements />} />
           <Route path="allCourses" element={<Courses />} />
         </Route>
+        <Route path="/resetpass" element={<ResetPassword />}></Route>
+
       </Routes>
     </BrowserRouter>
     // </div>
@@ -41,8 +44,9 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/signup" element={<Signup />} />
-        {/* <Route path="/dashboard" element={<Dashboard/>}/> */}
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/*" element={<Login />} />
+        <Route path="/resetpass" element={<ResetPassword />}></Route>
       </Routes>
     </BrowserRouter>
 
