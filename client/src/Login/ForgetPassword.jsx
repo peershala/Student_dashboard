@@ -5,6 +5,12 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { Backdrop, Fade, IconButton, InputAdornment, OutlinedInput } from '@mui/material';
 
+const [show,setShow]=useState(false)
+const handleShow=()=>{
+  setShow(!show)
+}
+  <label onClick={handleShow}>{show?"Hide":"Show"}</label>
+
 const style = {
     position: 'absolute',
     top: '50%',
