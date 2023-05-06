@@ -138,6 +138,22 @@ app.post('/login', async (req, res) => {
     res.statusCode = 400;
     res.send("Invalid Details");
   }
+
+
+  //added code for unique password --start
+
+
+  password = input("Enter password:")
+  if (password.count(password) > 1)
+      print("Error: This password has already been used. Please enter other password.");
+  else if(password.count(password)<1)
+      print("Login successfully!");
+  else
+      print("Error: Incorrect password. please try again.");
+
+  // added code for unique password --end
+
+
   const query2 = "SELECT * from auth where email=?"//change the table name,column name as per requirement
 
   db.query(query2, username, async (err, result) => {
