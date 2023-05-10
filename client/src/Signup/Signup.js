@@ -121,8 +121,7 @@ function Signup() {
         if (error.response)
           if (error.response.status === 400) {
 
-            // setError("Please fill all the fields correctly!")
-            seterrormessage("Please fill all the fields correctly!")
+            seterrormessage("User already exists with given username!")
             setOpenerror(true)
             setTimeout(() => {
               setLoading(false)
