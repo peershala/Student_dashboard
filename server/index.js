@@ -21,7 +21,7 @@ app.use(express.static(path.join(__dirname, '/../client/build')));
 app.use(express.urlencoded({ extended: false }))
 app.use(session({
   // secret: "bdewu",
-  secret: process.env.SECRET,
+  secret: 'bdewu',
   saveUninitialized: true,
   resave: false,
   store: new filestore(),
@@ -54,6 +54,28 @@ db.connect(function (err) {
 })
 
 
+
+function checkNameExists(name) {
+  return new Promise((resolve, reject) => {
+    db.query('SELECT COUNT(*) as count FROM auth WHERE user_name = ?', [name], (error, results) => {
+      if (error) {
+        reject(error);
+      } else {
+        const count = results[0].count;
+        if (count > 0) {
+          // If the count is greater than 0, the name already exists in the database
+          resolve(true);
+        } else {
+          // If the count is 0, the name does not exist in the database
+          resolve(false);
+        }
+      }
+    });
+  });
+}
+
+
+
 //home page routes
 app.get("/*", (req, res) => {
 
@@ -63,26 +85,21 @@ app.get("/*", (req, res) => {
 
 
 app.post('/register', async (req, res) => {
-
   const { uemail, username, password, fname, lname, collegename, mentor, coursename } = req.body || "null";
   console.log(uemail, username, password, fname, lname, collegename, mentor, coursename);
   const hash = await bcrypt.hash(password, 12);
   const fullname = fname + " " + lname;
 
-  const query2 = "SELECT id from auth where user_name=?"//change the table name,column name as per requirement
-
-  db.query(query2, username, async (err, result) => {
-    if (err) {
-      console.log(err);
-      res.sendStatus(403);
-    }
-    if (result.length != 0) {
+  try {
+    const nameExists = await checkNameExists(username);
+    console.log(nameExists);
+    if (nameExists) {
+      // Show an alert in the browser
       console.log('User already exists');
-      res.sendStatus(400)
-    }
-    else {
+      res.status(400).send();
+      return;
+    } else {
       const values = [username, hash, fname, lname, uemail, collegename, mentor, coursename];
-
       const query = "INSERT INTO auth(`user_name`,`user_password`,`first_name`,`last_name`,`email`,`collegename`,`mentor`,`coursename`) values (?,?,?,?,?,?,?,?)"//change the table name,column name as per requirement
       db.query(query, values, async (err, result) => {
         if (err) {
@@ -95,7 +112,6 @@ app.post('/register', async (req, res) => {
         try {
           var compiled = ejs.compile(fs.readFileSync(__dirname + '/views/jio.ejs', 'utf8'));
           var compiledhtml = compiled({ fname: fullname, useremail: uemail, upassword: password });
-
 
           var transporter = nodemailer.createTransport({
             service: 'gmail',
@@ -125,10 +141,15 @@ app.post('/register', async (req, res) => {
 
         console.log('Account created for ', username);
         res.sendStatus(200);
-      })
+      });
     }
-  })
-})
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
+});
+
+
 
 
 app.post('/login', async (req, res) => {
@@ -260,7 +281,7 @@ app.post("/fileget", (req, res) => {
 
 
 
-const port = process.env.PORT || 8880;
+const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
   console.log(`SESSION HEARING on ${port}..`);
