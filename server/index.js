@@ -21,7 +21,7 @@ app.use(express.static(path.join(__dirname, '/../client/build')));
 app.use(express.urlencoded({ extended: false }))
 app.use(session({
   // secret: "bdewu",
-  secret: 'bdewu',
+  secret: process.env.SECRET,
   saveUninitialized: true,
   resave: false,
   store: new filestore(),
