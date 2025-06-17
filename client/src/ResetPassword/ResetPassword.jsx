@@ -59,6 +59,11 @@ function ResetPassword() {
 
     setOpensuccess(false);
   };
+  const [show,setShow]=useState(false)
+  const handleShow=()=>{
+    setShow(!show)
+  }
+    <label onClick={handleShow}>{show?"Hide":"Show"}</label>
 
   // ------------------------------------------------------------------------
 
